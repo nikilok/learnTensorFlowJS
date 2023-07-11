@@ -78,7 +78,7 @@ tf.tidy(() => {
   // Random number range from 0 - 255
   const randomImageBlack = tf.randomUniform([200, 200, 1], 0, 255, 'int32')
   const randomImageColorNoise = tf.randomUniform([10, 10, 3], 0, 255, 'int32')
-  const patternColor = randomImageColorNoise.tile([400, 400, 1])
+  const patternColor = randomImageColorNoise.tile([300, 300, 1])
   const randomImageV2 = tf.randomUniform([50, 200, 4], 0, 255, 'int32')
 
   encodeJpeg(patternImage, './src/images/checkeredPattern.jpg')
