@@ -15,4 +15,5 @@ More on CuDnn setup here
 https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html
 
 Running a tensor flow example using @tensorflow/tfjs-node-gpu should show a header with the GPU name installed as seen below.
-![image](https://github.com/nikilok/learnTensorFlowJS/assets/6220175/823e2a6f-c2a5-48c8-882d-01400b66b4d5)
+![image](https://github.com/nikilok/learnTensorFlowJS/assets/6220175/66247d9e-9839-4afb-b0f8-6984b23a5743)
+
