@@ -20,3 +20,13 @@ export const encodePng = async (img: tf.Tensor<tf.Rank>, fileName: string) => {
   const data = await tf.node.encodePng(img as tf.Tensor3D)
   fs.writeFileSync(fileName, data)
 }
+
+export const decodeImg = (imgPath: string) => {
+  const image = fs.readFileSync(imgPath)
+  return tf.node.decodeImage(image)
+}
+
+export const decodeGifImg = (imgPath: string) => {
+  const image = fs.readFileSync(imgPath)
+  return tf.node.decodeImage(image, 3, 'int32', true)
+}

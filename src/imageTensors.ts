@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs-node-gpu'
-import { encodeJpeg, encodePng } from './utils'
+import { encodeJpeg, encodePng, decodeImg, decodeGifImg } from './utils'
 
 tf.tidy(() => {
   // create a 4 x 3 image (4 pixels wide, 3 pixels tall)
@@ -66,8 +66,8 @@ tf.tidy(() => {
     [[0], [255]],
   ])
 
-  const patternImage = pattern.tile([1000, 1000, 1])
-  console.log('patternImage', patternImage.arraySync())
+  const patternImage = pattern.tile([2e3, 2e3, 1])
+  console.log('patternImage src shape ->', patternImage.shape)
 
   /*
   Random pixel fill
@@ -86,4 +86,26 @@ tf.tidy(() => {
   encodeJpeg(randomImageColorNoise, './src/images/sampleColor.jpg')
   encodePng(randomImageV2, './src/images/sample-with-alpha.png')
   encodeJpeg(patternColor, './src/images/color-pattern.jpg')
+
+  // Read an image back into a tensor
+
+  const imgTensore = decodeImg('./src/images/checkeredPattern.jpg')
+  console.log(
+    '🚀 ~ file: imageTensors.ts:93 ~ tf.tidy ~ imgTensore:',
+    imgTensore.shape
+  )
+
+  // Read a gif image from disk
+  const jumpingCake = decodeGifImg('./src/img/jumping-cake.gif')
+  console.log(
+    '🚀 ~ file: imageTensors.ts:100 ~ tf.tidy ~ jumpingCake:',
+    jumpingCake.shape
+  )
+
+  // Loop through each frame of the gif and write it out as jpg
+  // since we saw 7 frames in the previous log we should have 7 jpg images
+  jumpingCake.arraySync().map((frame, i) => {
+    const imageFrameTensor = tf.tensor(frame)
+    encodeJpeg(imageFrameTensor, `./src/images/frame${i + 1}.jpg`)
+  })
 })
