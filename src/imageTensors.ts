@@ -101,11 +101,37 @@ tf.tidy(() => {
     '🚀 ~ file: imageTensors.ts:100 ~ tf.tidy ~ jumpingCake:',
     jumpingCake.shape
   )
+  const reversedTensor = tf
+    .tensor([
+      [
+        [1, 2, 3],
+        [2, 2, 3],
+        [3, 2, 3],
+      ],
+      [
+        [1, 2, 3],
+        [2, 2, 3],
+        [3, 2, 3],
+      ],
+      [
+        [1, 2, 3],
+        [2, 2, 3],
+        [3, 2, 3],
+      ],
+    ])
+    .reverse(2)
+  console.log(
+    '🚀 ~ file: imageTensors.ts:105 ~ tf.tidy ~ reversedTensor:',
+    reversedTensor.arraySync()
+  )
 
   // Loop through each frame of the gif and write it out as jpg
   // since we saw 7 frames in the previous log we should have 7 jpg images
   jumpingCake.arraySync().map((frame, i) => {
-    const imageFrameTensor = tf.tensor(frame)
+    // reverse (2) - flips the color.. gets a negative.
+    // reverse (1) - flips the image horizontally
+    // reverse (0) - flips the image vertically along the y axis.
+    const imageFrameTensor = tf.tensor(frame).reverse(2)
     encodeJpeg(imageFrameTensor, `./src/images/frame${i + 1}.jpg`)
   })
 })
